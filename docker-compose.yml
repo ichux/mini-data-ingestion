@@ -4,7 +4,7 @@ services:
   app:
     build: .
     image: mdi
-    command: sh -c "flask fab create-db && flask data && flask run --host=0.0.0.0"
+    command: sh -c "flask fab create-db && flask data && flask run --reload --host=0.0.0.0"
     environment:
       FLASK_APP: app/__init__.py
     ports:

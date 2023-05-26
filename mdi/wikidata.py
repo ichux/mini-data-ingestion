@@ -1,7 +1,9 @@
+import logging
 from datetime import datetime
 
 import requests
 from flask_appbuilder import SQLA
+from requests.adapters import HTTPAdapter
 
 INSERT_LABELED_QUERY = """
 INSERT INTO {table}(wiki_id, label)
@@ -67,15 +69,20 @@ SET
   director_id = EXCLUDED.director_id RETURNING id
 """
 
+session = requests.Session()
+session.mount("https://", requests.adapters.HTTPAdapter(max_retries=3))
+
 
 def load_wikidata(db: SQLA):
     with open("query.sparql", "r") as query_file:
         query = query_file.read()
 
-    response = requests.get(
+    logging.info("STARTS SCRAPING https://query.wikidata.org/sparql")
+    response = session.get(
         "https://query.wikidata.org/sparql",
         params={"query": query, "format": "json"},
     )
+    logging.info("STOPS SCRAPING https://query.wikidata.org/sparql")
 
     response.raise_for_status()
     data = response.json()
