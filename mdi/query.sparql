@@ -1,0 +1,30 @@
+SELECT DISTINCT ?movie ?movieTitle ?movieDescription ?duration ?officialWebsite ?countryOfOrigin ?countryOfOriginLabel ?genre ?genreLabel ?originalLanguage ?originalLanguageLabel ?director ?directorLabel ?producer ?producerLabel ?castMember ?castMemberLabel ?publicationDate ?imdbID ?review WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  {
+    SELECT DISTINCT ?movie ?movieTitle ?duration ?officialWebsite ?countryOfOrigin ?genre ?originalLanguage ?director ?producer ?castMember  ?publicationDate ?imdbID ?review WHERE {
+      ?movie wdt:P31 wd:Q11424;
+        wdt:P1476 ?movieTitle;
+        wdt:P2047 ?duration;
+        wdt:P495 ?countryOfOrigin;
+        wdt:P856 ?officialWebsite;
+        wdt:P136 ?genre;
+        wdt:P364 ?originalLanguage;
+        wdt:P57 ?director;
+        wdt:P162 ?producer;
+        wdt:P161 ?castMember;
+        wdt:P444 ?review;
+        wdt:P345 ?imdbID;
+        p:P577 _:b3.
+      _:b3 psv:P577 ?pub_date_stmt_val.
+      ?pub_date_stmt_val wikibase:timePrecision ?precision.
+      hint:Prior hint:rangeSafe "true"^^xsd:boolean.
+      FILTER(?precision >= 9 )
+      ?pub_date_stmt_val wikibase:timeValue ?publicationDate.
+      hint:Prior hint:rangeSafe "true"^^xsd:boolean.
+      FILTER(?publicationDate >= "+2014-00-00T00:00:00Z"^^xsd:dateTime)
+      ?movie p:P345 ?pImdbID.
+      ?pImdbID ps:P345 _:anyValueP345.
+    }
+    LIMIT 30000
+  }
+}

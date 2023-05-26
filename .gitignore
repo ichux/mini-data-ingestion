@@ -1,0 +1,15 @@
+env/
+venv/
+__pycache__/
+./tmp
+./build/*
+.idea/
+logs/
+
+.DS_Store
+*.pyc
+.env
+*.db
+*.db-journal
+
+*.sublime*
