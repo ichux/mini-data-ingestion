@@ -3,7 +3,6 @@ from datetime import datetime
 
 import requests
 from flask_appbuilder import SQLA
-from requests.adapters import HTTPAdapter
 
 INSERT_LABELED_QUERY = """
 INSERT INTO {table}(wiki_id, label)
