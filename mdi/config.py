@@ -8,7 +8,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 SECRET_KEY = "\x05\xa7\xaf>m\xd2:SL\xc3C?\xfbm\xa3\x95\xe6|\x19\xca\xbc\xb1\x823ecd2720a21821e380171e2181e9b0d8336d8"
 
 # The SQLAlchemy connection string.
-SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/app.db"
+SQLALCHEMY_DATABASE_URI = "sqlite:////home/app.db"
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Flask-WTF flag for CSRF
@@ -24,15 +24,3 @@ APP_NAME = "Movies Data"
 # AUTHENTICATION CONFIG
 # ----------------------------------------------------
 AUTH_TYPE = AUTH_DB
-
-# ---------------------------------------------------
-# Image and file configuration
-# ---------------------------------------------------
-# The file upload folder, when using models with files
-UPLOAD_FOLDER = basedir + "/app/static/uploads/"
-
-# The image upload folder, when using models with images
-IMG_UPLOAD_FOLDER = basedir + "/app/static/uploads/"
-
-# The image upload url, when using models with images
-IMG_UPLOAD_URL = "/static/uploads/"
